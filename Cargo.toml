@@ -1,0 +1,23 @@
+[package]
+name = "higher_order_functions"
+description = "A small collection of traits for implementing higher order functions"
+keywords = ["higher-order", "traits", "init", "map", "array"]
+categories = ["data-structures", "rust-patterns", "no-std"]
+documentation = "https://docs.rs/higher_order_functions"
+homepage = "https://github.com/LukeMiles49/higher-order-functions-rs"
+version = "0.1.0"
+authors = ["Luke Miles <luke.49@live.co.uk>"]
+license = "MIT"
+repository = "https://github.com/LukeMiles49/higher-order-functions-rs"
+readme = "README.md"
+edition = "2018"
+
+[dependencies]
+
+[dev-dependencies]
+version-sync = "0.9"
+
+[features]
+default = ["std"]
+std = []
+alloc = []
