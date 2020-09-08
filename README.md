@@ -43,8 +43,44 @@ let arr = [1, 4, 6, -3, 6].map(f64::from);
 assert_eq!(arr, [1.0, 4.0, 6.0, -3.0, 6.0]);
 ```
 
+## Zip:
+
+```rust
+use higher_order_functions::Zip;
+
+let a = [1, 2, 3];
+let b = ["a", "b", "c"];
+
+let arr = a.zip(b, |ax, bx| (ax, bx));
+
+assert_eq!(arr, [(1, "a"), (2, "b"), (3, "c")]);
+```
+
+```rust
+use higher_order_functions::Zip;
+
+let a = [1, 2, 3];
+let b = [4, 5, 6];
+
+let arr = a.zip(b, |ax, bx| ax * bx);
+
+assert_eq!(arr, [4, 10, 18]);
+```
+
+## Section:
+
+```rust
+use higher_order_functions::Section;
+
+let a: [u32; 8] = [1, 2, 3, 4, 5, 6, 7, 8];
+
+let arr: [u32; 4] = a.section(3); // Extracts 4 elements starting at a[3]
+
+assert_eq!(arr, [4, 5, 6, 7]);
+```
+
 To use this, add it as a dependency to your Cargo.toml:
 ```toml
 [dependencies]
-higher_order_functions = "0.1.0"
+higher_order_functions = "^0.1.1"
 ```

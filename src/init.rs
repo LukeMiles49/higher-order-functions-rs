@@ -1,7 +1,7 @@
-use crate::type_equals::TypeEquals;
+use crate::helpers::TypeEquals;
 
 use core::marker::Sized;
-use core::mem::{MaybeUninit, transmute_copy, forget};
+use core::mem::{MaybeUninit, transmute_copy};
 
 /// Types which can be initialised by applying a function to each 'index' of the type.
 ///
@@ -66,10 +66,8 @@ impl<T, const N: usize> Init<T, usize> for [T; N] {
 			contents[i] = MaybeUninit::new(elem(i));
 		}
 		
-		// FIXME: Replace with transmute once it works with const generic array sizes
-		let res = unsafe { transmute_copy(&contents) };
-		forget(contents);
-		res
+		// FIXME (#61956): Replace with transmute once it works with const generic array sizes
+		unsafe { transmute_copy(&contents) }
 	}
 }
 
