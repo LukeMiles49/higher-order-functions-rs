@@ -25,15 +25,15 @@ pub trait Init<T, I, V = ()>: Sized {
 	/// # Examples
 	///
 	#[cfg_attr(feature = "std", doc = r##"
-	Constructing a Vec containing the values 0 to 4:
-	
-	```rust
-	use higher_order_functions::Init;
-	
-	let vec = Vec::<usize>::init_with(5, |i| i);
-	
-	assert_eq!(vec, vec![0, 1, 2, 3, 4]);
-	```
+Constructing a Vec containing the values 0 to 4:
+
+```rust
+use higher_order_functions::Init;
+
+let vec = Vec::<usize>::init_with(5, |i| i);
+
+assert_eq!(vec, vec![0, 1, 2, 3, 4]);
+```
 	"##)]
 	fn init_with<F: FnMut(I) -> T>(value: V, elem: F) -> Self;
 	

@@ -82,5 +82,5 @@ assert_eq!(arr, [4, 5, 6, 7]);
 To use this, add it as a dependency to your Cargo.toml:
 ```toml
 [dependencies]
-higher_order_functions = "^0.1.1"
+higher_order_functions = "^0.1.2"
 ```

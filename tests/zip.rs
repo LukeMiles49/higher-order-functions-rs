@@ -2,7 +2,7 @@ use higher_order_functions::Zip;
 
 #[test]
 fn zip_empty_arrays() {
-	let arr = [].zip([], |_: (), _: ()| panic!("Shouldn't call map function"));
+	let arr = [].zip([], |_: (), _: ()| panic!("Shouldn't call zip function"));
 	assert_eq!(arr, []);
 }
 

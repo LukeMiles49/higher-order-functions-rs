@@ -47,7 +47,7 @@ impl<TFrom, const N: usize> Map for [TFrom; N] {
 		let mut contents: [MaybeUninit<TTo>; N] = MaybeUninit::uninit_array();
 		
 		for i in 0..N {
-			contents[i].write(f(unsafe { consumed[i].read() }));
+			contents[i].write(f(unsafe { consumed[i].assume_init_read() }));
 		}
 		
 		// FIXME (#61956): Replace with transmute once it works with const generic array sizes

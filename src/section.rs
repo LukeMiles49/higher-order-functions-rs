@@ -32,7 +32,7 @@ pub trait Section<TOffset, TOut> {
 impl<T: Copy, const N: usize, const N_OUT: usize> Section<usize, [T; N_OUT]> for [T; N] {
 	fn section(&self, offset: usize) -> [T; N_OUT] {
 		// Neat! Adding this assertion actually speeds up the code as it removes the bounds checks in the loop.
-		assert!(N_OUT + offset <= N, "Out of bounds");
+		assert!(offset <= N - N_OUT, "Out of bounds");
 		<[T; N_OUT]>::init(|i| self[i + offset])
 	}
 }

@@ -72,7 +72,7 @@
 //! To use this, add it as a dependency to your Cargo.toml:
 //! ```toml
 //! [dependencies]
-//! higher_order_functions = "^0.1.1"
+//! higher_order_functions = "^0.1.2"
 //! ```
 
 #![no_std]
@@ -83,7 +83,7 @@
 #![feature(maybe_uninit_uninit_array)]
 #![feature(maybe_uninit_extra)]
 
-#![doc(html_root_url = "https://docs.rs/higher_order_functions/0.1.1")]
+#![doc(html_root_url = "https://docs.rs/higher_order_functions/0.1.2")]
 
 #[cfg(feature = "std")]
 extern crate std as lib;
