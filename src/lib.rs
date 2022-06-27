@@ -41,7 +41,7 @@
 //! let a = [1, 2, 3];
 //! let b = ["a", "b", "c"];
 //!
-//! let arr = a.zip(b, |ax, bx| (ax, bx));
+//! let arr = a.zip_with(b, |ax, bx| (ax, bx));
 //!
 //! assert_eq!(arr, [(1, "a"), (2, "b"), (3, "c")]);
 //! ```
@@ -52,7 +52,7 @@
 //! let a = [1, 2, 3];
 //! let b = [4, 5, 6];
 //!
-//! let arr = a.zip(b, |ax, bx| ax * bx);
+//! let arr = a.zip_with(b, |ax, bx| ax * bx);
 //!
 //! assert_eq!(arr, [4, 10, 18]);
 //! ```
@@ -72,18 +72,16 @@
 //! To use this, add it as a dependency to your Cargo.toml:
 //! ```toml
 //! [dependencies]
-//! higher_order_functions = "^0.1.2"
+//! higher_order_functions = "^0.2.0"
 //! ```
 
 #![no_std]
 
-#![feature(const_generics)]
 #![feature(generic_associated_types)]
-#![feature(external_doc)]
+#![feature(maybe_uninit_array_assume_init)]
 #![feature(maybe_uninit_uninit_array)]
-#![feature(maybe_uninit_extra)]
 
-#![doc(html_root_url = "https://docs.rs/higher_order_functions/0.1.2")]
+#![doc(html_root_url = "https://docs.rs/higher_order_functions/0.2.0")]
 
 #[cfg(feature = "std")]
 extern crate std as lib;
@@ -113,6 +111,6 @@ pub use {
 };
 
 // Include the readme and changelog as hidden documentation so they're tested by cargo test
-#[doc(include = "../README.md")]
-#[doc(include = "../CHANGELOG.md")]
+#[doc = include_str!("../README.md")]
+#[doc = include_str!("../CHANGELOG.md")]
 type _Doctest = ();

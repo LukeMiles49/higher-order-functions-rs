@@ -51,7 +51,7 @@ use higher_order_functions::Zip;
 let a = [1, 2, 3];
 let b = ["a", "b", "c"];
 
-let arr = a.zip(b, |ax, bx| (ax, bx));
+let arr = a.zip_with(b, |ax, bx| (ax, bx));
 
 assert_eq!(arr, [(1, "a"), (2, "b"), (3, "c")]);
 ```
@@ -62,7 +62,7 @@ use higher_order_functions::Zip;
 let a = [1, 2, 3];
 let b = [4, 5, 6];
 
-let arr = a.zip(b, |ax, bx| ax * bx);
+let arr = a.zip_with(b, |ax, bx| ax * bx);
 
 assert_eq!(arr, [4, 10, 18]);
 ```
@@ -82,5 +82,5 @@ assert_eq!(arr, [4, 5, 6, 7]);
 To use this, add it as a dependency to your Cargo.toml:
 ```toml
 [dependencies]
-higher_order_functions = "^0.1.2"
+higher_order_functions = "^0.2.0"
 ```

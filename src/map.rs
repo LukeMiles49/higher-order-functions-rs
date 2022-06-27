@@ -1,6 +1,3 @@
-use crate::helpers::as_maybe_uninit_array;
-
-use core::mem::{MaybeUninit, transmute_copy};
 use core::hash::Hash;
 
 /// Types containing 'inner' values which can be mapped over.
@@ -42,16 +39,8 @@ impl<TFrom, const N: usize> Map for [TFrom; N] {
 	type TFrom = TFrom;
 	type TOut<TTo> = [TTo; N];
 	
-	fn map<TTo, F: FnMut(TFrom) -> TTo>(self, mut f: F) -> Self::TOut<TTo> {
-		let consumed: [MaybeUninit<TFrom>; N] = as_maybe_uninit_array(self);
-		let mut contents: [MaybeUninit<TTo>; N] = MaybeUninit::uninit_array();
-		
-		for i in 0..N {
-			contents[i].write(f(unsafe { consumed[i].assume_init_read() }));
-		}
-		
-		// FIXME (#61956): Replace with transmute once it works with const generic array sizes
-		unsafe { transmute_copy(&contents) }
+	fn map<TTo, F: FnMut(TFrom) -> TTo>(self, f: F) -> Self::TOut<TTo> {
+		self.map(f)
 	}
 }
 

@@ -23,7 +23,7 @@ fn empty_section() {
 fn empty_out_of_bounds() {
 	let a = [1, 2, 3, 4, 5];
 	
-	let arr: [_; 0] = a.section(7);
+	let _arr: [_; 0] = a.section(7);
 }
 
 #[test]
@@ -58,5 +58,5 @@ fn full_section() {
 fn out_of_bounds() {
 	let a = [1, 2, 3, 4, 5];
 	
-	let arr: [_; 3] = a.section(3);
+	let _arr: [_; 3] = a.section(3);
 }

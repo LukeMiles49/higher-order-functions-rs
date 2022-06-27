@@ -2,11 +2,17 @@
 
 This project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v0.2.0](https://crates.io/crates/higher_order_functions/0.2.0) - 2022-06-27
+
+### Updated:
+* Renamed `Zip::zip` to `Zip::zip_with` to avoid name collisions with upcoming standard library functions
+* Removed unnecessary unstable features
+
 ## [v0.1.2](https://crates.io/crates/higher_order_functions/0.1.2) - 2021-04-04
 
 ### Fixed:
-* Unstable function name changed by [https://github.com/rust-lang/rust/issues/63567]
-* Docs broken by [https://github.com/rust-lang/rust/pull/76154]
+* Unstable function name changed by <https://github.com/rust-lang/rust/issues/63567>
+* Docs broken by <https://github.com/rust-lang/rust/pull/76154>
 
 ## [v0.1.1](https://crates.io/crates/higher_order_functions/0.1.1) - 2020-09-08
 

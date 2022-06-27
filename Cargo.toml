@@ -5,12 +5,12 @@ keywords = ["higher-order", "traits", "init", "map", "array"]
 categories = ["data-structures", "rust-patterns", "no-std"]
 documentation = "https://docs.rs/higher_order_functions"
 homepage = "https://github.com/LukeMiles49/higher-order-functions-rs"
-version = "0.1.2"
+version = "0.2.0"
 authors = ["Luke Miles <luke.49@live.co.uk>"]
 license = "MIT"
 repository = "https://github.com/LukeMiles49/higher-order-functions-rs"
 readme = "README.md"
-edition = "2018"
+edition = "2021"
 
 [dependencies]
 

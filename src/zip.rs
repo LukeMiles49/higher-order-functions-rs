@@ -1,6 +1,4 @@
-use crate::helpers::as_maybe_uninit_array;
-
-use core::mem::{MaybeUninit, transmute_copy};
+use core::mem::MaybeUninit;
 
 /// Zip two collections using a function to combine pairs of elements.
 ///
@@ -14,7 +12,7 @@ use core::mem::{MaybeUninit, transmute_copy};
 /// let a = [1, 2, 3];
 /// let b = ["a", "b", "c"];
 ///
-/// let arr = a.zip(b, |ax, bx| (ax, bx));
+/// let arr = a.zip_with(b, |ax, bx| (ax, bx));
 ///
 /// assert_eq!(arr, [(1, "a"), (2, "b"), (3, "c")]);
 /// ```
@@ -27,7 +25,7 @@ use core::mem::{MaybeUninit, transmute_copy};
 /// let a = [1, 2, 3];
 /// let b = [4, 5, 6];
 ///
-/// let arr = a.zip(b, |ax, bx| ax * bx);
+/// let arr = a.zip_with(b, |ax, bx| ax * bx);
 ///
 /// assert_eq!(arr, [4, 10, 18]);
 /// ```
@@ -43,7 +41,7 @@ pub trait Zip {
 	type TSelf<T>;
 	
 	/// Apply `f` to each pair of elements in `self` and `rhs` and return the results.
-	fn zip<TRhs, TTo, F: FnMut(Self::TLhs, TRhs) -> TTo>(self, rhs: Self::TSelf<TRhs>, f: F) -> Self::TSelf<TTo>;
+	fn zip_with<TRhs, TTo, F: FnMut(Self::TLhs, TRhs) -> TTo>(self, rhs: Self::TSelf<TRhs>, f: F) -> Self::TSelf<TTo>;
 }
 
 /// Zip two arrays using a function to combine pairs of elements.
@@ -51,16 +49,15 @@ impl<TLhs, const N: usize> Zip for [TLhs; N] {
 	type TLhs = TLhs;
 	type TSelf<T> = [T; N];
 	
-	fn zip<TRhs, TTo, F: FnMut(Self::TLhs, TRhs) -> TTo>(self, rhs: Self::TSelf<TRhs>, mut f: F) -> Self::TSelf<TTo> {
-		let consumed_lhs: [MaybeUninit<TLhs>; N] = as_maybe_uninit_array(self);
-		let consumed_rhs: [MaybeUninit<TRhs>; N] = as_maybe_uninit_array(rhs);
+	fn zip_with<TRhs, TTo, F: FnMut(Self::TLhs, TRhs) -> TTo>(self, rhs: Self::TSelf<TRhs>, mut f: F) -> Self::TSelf<TTo> {
+		let consumed_lhs: [MaybeUninit<TLhs>; N] = self.map(MaybeUninit::new);
+		let consumed_rhs: [MaybeUninit<TRhs>; N] = rhs.map(MaybeUninit::new);
 		let mut contents: [MaybeUninit<TTo>; N] = MaybeUninit::uninit_array();
 		
 		for i in 0..N {
 			contents[i].write(f(unsafe { consumed_lhs[i].assume_init_read() }, unsafe { consumed_rhs[i].assume_init_read() }));
 		}
 		
-		// FIXME (#61956): Replace with transmute once it works with const generic array sizes
-		unsafe { transmute_copy(&contents) }
+		unsafe { MaybeUninit::array_assume_init(contents) }
 	}
 }
